@@ -1,4 +1,6 @@
-var draw;//to check 是否正在繪圖狀態
+var isDrawing=false; //to check 是否正在繪圖狀態
+var lastX=0;
+var lastY=0;
 function InitPainter(div)
 {
     /*add a title*/
@@ -10,8 +12,8 @@ function InitPainter(div)
 
     /*to layout the canvas*/
     var canvas=document.createElement('canvas');
-    canvas.width=1000;
-    canvas.height=1000;
+    canvas.width=500;
+    canvas.height=400;
     //canvas.background-color="#ffffff";
     canvas.style="border:1px solid #000000";
     document.getElementById(div).appendChild(canvas);
@@ -20,20 +22,35 @@ function InitPainter(div)
     ctx=canvas.getContext("2d");
     ctx.strokeStyle='#000000';
     ctx.lineWidth=10;
-    ctx.moveTo(0,0);
-    canvas.addEventListener("click",drawline);
-
+    //canvas.addEventListener("click",drawline);
+    
+    //event binding
+    canvas.addEventListener('mouseup',()=>isDrawing=false);
+    canvas.addEventListener('mouseout',()=>isDrawing=false);
+    canvas.addEventListener('mousedown',(e)=>
+    {
+        isDrawing=true;//allow to draw
+        [lastX.lastY]=[e.offsetX,e.offsetY];
+    });
+    canvas.addEventListener('mousemove',draw);
 
     /*add a sub-title*/
     var title=document.createElement('h3');
     title.innerHTML='Brush Shape';
     document.getElementById(div).appendChild(title);
 
+    //add a button butt
+    var button=document.createElement('button');
+    button.type="button";
+    button.innerHTML="Butt";
+    document.getElementById(div).appendChild(button);
+    button.onclick=Shape(3);
+
     //add a button rectangle
     var button=document.createElement('button');
     button.type="button";
     button.innerHTML="Rectangle";
-    button.onclick=Shape(0);
+    //button.onclick=Shape(0);
     document.getElementById(div).appendChild(button);
 
     //add a button round
@@ -101,13 +118,25 @@ function InitPainter(div)
     document.getElementById(div).appendChild(css);
   
 }
-function drawline(e)
+/*function drawline(e)
 {
     var x = e.clientX;
     var y = e.clientY;
     ctx.lineTo(x-10,y-80);
     ctx.stroke();
     document.getElementById('title').innerHTML=x+","+y;
+}*/
+function draw(e)
+{
+    if(!isDrawing)
+    {
+        return;
+    }
+    ctx.moveTo(lastX,lastY);
+    ctx.lineTo(e.offsetX,e.offsetY);
+    ctx.stroke();
+
+    [lastX,lastY]=[e.offsetX,e.offsetY];
 }
 function Color(e)
 {
@@ -149,5 +178,10 @@ function Shape(shape)
     {
         //it is still round!!!!!!!
         ctx.strokeStyle = "round"
+    } 
+    else if (shape==3)
+    {
+        //it is still round!!!!!!!
+        ctx.strokeStyle = "butt"
     } 
 };
