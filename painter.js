@@ -287,17 +287,3 @@ function Reset()
     step=(-1);
     pushStack=[];
 }
-/*
-ok
-brush and eraser
-color selector
-simple menu
-reset
-brush shape
-dowload
-cursor icon
-undo/redo button
-
-not yet
-CSS
-*/
