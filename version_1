@@ -18,12 +18,11 @@ function InitPainter(div)
     var title=document.createElement('H1');
     title.innerHTML='painter';
     document.getElementById(div).appendChild(title);
-    
     /*background*/
     //document.body.style.background="#f44242";
 
     /*to layout the canvas*/
-    canvas=document.createElement('canvas');
+    var canvas=document.createElement('canvas');
     canvas.width=500;
     canvas.height=400;
     //canvas.background-color="#ffffff";
@@ -109,7 +108,7 @@ function InitPainter(div)
 
     /*add a sub-title*/
     var title=document.createElement('h3');
-    title.innerHTML='Eraser';
+    title.innerHTML='Eraser, Reset & Save';
     document.getElementById(div).appendChild(title);
 
     //an eraser 
@@ -126,11 +125,25 @@ function InitPainter(div)
     button.addEventListener('click',()=>Reset());
     document.getElementById(div).appendChild(button);
 
+    //save image button
+    var a=document.createElement('a');
+    a.href="#";
+    a.innerHTML="Download";
+    a.download="test.png";
+    a.addEventListener('click',()=>
+    {
+        a.href=canvas.toDataURL();
+        a.download="mypainter.png";
+
+    });
+    document.getElementById(div).appendChild(a);
+
     /*css*/
     var css=document.createElement("style");
     css.type="text/css";
     css.innerHTML="strong{color:lightblue}";
     document.getElementById(div).appendChild(css);
+
 }
 function draw(e)
 {
@@ -229,9 +242,9 @@ color selector
 simple menu
 reset
 brush shape
+dowload
 cursor icon
 
 not yet
 undo/redo button
-dowload
 */
