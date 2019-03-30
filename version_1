@@ -1,5 +1,5 @@
 var pushStack=new Array();
-var step=(-1);
+var step=(0);
 var isDrawing=false; //to check 是否正在繪圖狀態
 var color="#000000"; //default color is black
 var shape=0;
@@ -59,7 +59,6 @@ function InitPainter(div)
     canvas.addEventListener('mousemove',ChangeCursor);
     canvas.addEventListener('mouseup',()=>
     {
-        //alert("step is "+step+"the lenght is "+pushStack.length);
         step++;
         if(step<pushStack.length)
         {
@@ -147,7 +146,15 @@ function InitPainter(div)
     document.getElementById(div).appendChild(button);
     button.addEventListener('click',()=>
     {
-        if (step>0)
+        if (step==0)
+        {
+            //reset the canvas
+            ctx.clearRect(0,0,500,400);
+            ctx.fillStyle="#ffffff";
+            ctx.fillRect(0,0,500,400);
+            step--;
+        }
+        else if (step>0)
         {
             step--;
             var canvasPic=new Image();
@@ -156,8 +163,6 @@ function InitPainter(div)
             {
                 ctx.drawImage(canvasPic,0,0);
             }
-            Document.title=step+":"+pushStack.length;
-            alert("aha");
         }
     });
 
@@ -176,8 +181,6 @@ function InitPainter(div)
             {
                 ctx.drawImage(canvasPic,0,0);
             }
-            Document.title=step+":"+pushStack.length;
-            alert("aha");
         }
     });
     document.getElementById(div).appendChild(button);
@@ -268,7 +271,6 @@ function Shape(e)
     {
         shape = 'miter'
     }
-    //alert("you got the shape " + shape);
 };
 function Reset()
 {
@@ -277,11 +279,13 @@ function Reset()
     color="#000000"; 
     cur=true;
     shape=0;
-
+    //reset the canvas
     ctx.clearRect(0,0,500,400);
     ctx.fillStyle="#ffffff";
     ctx.fillRect(0,0,500,400);
-    //alert("you reset");
+    //init the pushStack
+    step=(-1);
+    pushStack=[];
 }
 /*
 ok
@@ -295,5 +299,5 @@ cursor icon
 undo/redo button
 
 not yet
-css
+CSS
 */
