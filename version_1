@@ -1,5 +1,6 @@
 var isDrawing=false; //to check 是否正在繪圖狀態
-var color=0;
+var color="#000000";
+var ctx=0;
 /*
 0=>red 
 1=>green 
@@ -22,7 +23,7 @@ function InitPainter(div)
     //document.body.style.background="#f44242";
 
     /*to layout the canvas*/
-    var canvas=document.createElement('canvas');
+    canvas=document.createElement('canvas');
     canvas.width=500;
     canvas.height=400;
     //canvas.background-color="#ffffff";
@@ -33,7 +34,6 @@ function InitPainter(div)
     ctx=canvas.getContext("2d");
     ctx.strokeStyle='#000000';
     ctx.lineWidth=10;
-    //canvas.addEventListener("click",drawline);
     
     //event binding
     canvas.addEventListener('mouseup',()=>isDrawing=false);
@@ -64,7 +64,7 @@ function InitPainter(div)
     button.type="button";
     button.innerHTML="Round";
     document.getElementById(div).appendChild(button);
-    //button.onclick=Shape(1);
+    button.onclick=Shape(1);
 
     //add a button triangle
     var button=document.createElement('button');
@@ -78,7 +78,7 @@ function InitPainter(div)
     button.type="button";
     button.innerHTML="Butt";
     document.getElementById(div).appendChild(button);
-    button.onclick=Shape(3);
+    //button.onclick=Shape(3);
 
     /*add a sub-title*/
     var title=document.createElement('h3');
@@ -89,23 +89,22 @@ function InitPainter(div)
     var button=document.createElement('button');
     button.type="button";
     button.innerHTML="Red";
+    button.addEventListener('click',()=>Color(0));
     document.getElementById(div).appendChild(button);
-    //button.onclick=Color(0);
-    //button.addEventListener('onclick',()=>color=0);
 
     //choose color : green
     var button=document.createElement('button');
     button.type="button";
     button.innerHTML="Green";
+    button.addEventListener('click',()=>Color(1));
     document.getElementById(div).appendChild(button);
-    button.onclick=Color(1); 
 
     //choose color : black
     var button=document.createElement('button');
     button.type="button";
     button.innerHTML="Black";
+    button.addEventListener('click',()=>Color(2));
     document.getElementById(div).appendChild(button);
-    //button.onclick=Color(2);
 
     /*add a sub-title*/
     var title=document.createElement('h3');
@@ -117,7 +116,7 @@ function InitPainter(div)
     button.type="button";
     button.innerHTML="Eraser";
     document.getElementById(div).appendChild(button);
-    //button.onclick=Color(3); 
+    button.addEventListener('click',()=>Color(3));
 
     //a reset button 
     var button=document.createElement('button');
@@ -131,15 +130,11 @@ function InitPainter(div)
     css.innerHTML="strong{color:lightblue}";
     document.getElementById(div).appendChild(css);
   
+
+    function newFunction() {
+        return Color(0);
+    }
 }
-/*function drawline(e)
-{
-    var x = e.clientX;
-    var y = e.clientY;
-    ctx.lineTo(x-10,y-80);
-    ctx.stroke();
-    document.getElementById('title').innerHTML=x+","+y;
-}*/
 function draw(e)
 {
     //看是不是在畫畫的狀態
@@ -147,6 +142,7 @@ function draw(e)
     {
         return;
     }
+    ctx.strokeStyle=color;
     //line to the place where the mouse is
     ctx.lineTo(e.offsetX,e.offsetY);
     ctx.stroke();
@@ -156,23 +152,24 @@ function Color(e)
     /*red*/
     if (e==0)
     {
-        ctx.strokeStyle = "#cc0000"
+        color="#cc0000"
     }
-    //red 
+    //green
     else if (e==1)
     {
-        ctx.strokeStyle = "#00cc00"
+        color = "#00cc00"
     } 
     //black
     else if (e==2)
     {
-        ctx.strokeStyle = "#000000"
+        color = "#000000"
     } 
     //eraser
     else if (e==3)
     {
-        ctx.strokeStyle="#ffffff"
+        color="#ffffff"
     }
+    alert("you got the color"+color);
 };
 function Shape(shape)
 {
