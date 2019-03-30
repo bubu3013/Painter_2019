@@ -1,10 +1,5 @@
 var isDrawing=false; //to check 是否正在繪圖狀態
 var color="#000000"; //default color is black
-/*
-0=>red 
-1=>green 
-2=>black
-*/
 var shape=0;
 /*
 0=>rectangle 
@@ -12,12 +7,18 @@ var shape=0;
 2=>triangle 
 3=>default
 */
+var cur=true;
+/*
+0:draw
+1:eraser
+*/
 function InitPainter(div)
 {
     /*add a title*/
     var title=document.createElement('H1');
     title.innerHTML='painter';
     document.getElementById(div).appendChild(title);
+    
     /*background*/
     //document.body.style.background="#f44242";
 
@@ -45,6 +46,7 @@ function InitPainter(div)
         ctx.beginPath();
     });
     canvas.addEventListener('mousemove',draw);
+    canvas.addEventListener('mousemove',ChangeCursor);
 
     /*add a sub-title*/
     var title=document.createElement('h3');
@@ -129,14 +131,10 @@ function InitPainter(div)
     css.type="text/css";
     css.innerHTML="strong{color:lightblue}";
     document.getElementById(div).appendChild(css);
-  
-
-    function newFunction() {
-        return Color(0);
-    }
 }
 function draw(e)
 {
+
     //看是不是在畫畫的狀態
     if(!isDrawing)
     {
@@ -144,6 +142,7 @@ function draw(e)
     }
     ctx.strokeStyle=color;
     ctx.lineCap=shape;
+
     //line to the place where the mouse is
     ctx.lineTo(e.offsetX,e.offsetY);
     ctx.stroke();
@@ -153,25 +152,40 @@ function Color(e)
     /*red*/
     if (e==0)
     {
+        cur=true;
         color="#cc0000"
     }
     //green
     else if (e==1)
     {
+        cur=true;
         color = "#00cc00"
     } 
     //black
     else if (e==2)
     {
+        cur=true;
         color = "#000000"
     } 
     //eraser
     else if (e==3)
     {
+        cur=false;
         color="#ffffff"
     }
-    //alert("you got the color"+color);
 };
+//change the cursor
+function ChangeCursor()
+{
+    if (cur)
+    {
+        document.body.style.cursor="cell";
+    }
+    else
+    {   
+        document.body.style.cursor="pointer";  
+    }
+}
 function Shape(e)
 {
     //rectangle
@@ -202,6 +216,7 @@ function Reset()
     //init all the variable
     isDrawing=false; 
     color="#000000"; 
+    cur=true;
     shape=0;
 
     ctx.clearRect(0,0,500,400);
@@ -214,9 +229,9 @@ color selector
 simple menu
 reset
 brush shape
+cursor icon
 
 not yet
-cursor icon
 undo/redo button
 dowload
 */
