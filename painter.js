@@ -3,6 +3,7 @@ var step=(0);
 var isDrawing=false; //to check 是否正在繪圖狀態
 var color="#000000"; //default color is black
 var shape=0;
+var brush_shape=0;
 /*
 0=>rectangle 
 1=>round 
@@ -20,12 +21,14 @@ function InitPainter(div)
     var title=document.createElement('h2');
     title.innerHTML='painter';
     document.getElementById(div).appendChild(title);
+    //page name
+    document.title="myPainter";
 
-    /*css*/
+    /*css QQQQQQQQQQQQQQQQQQQQQQQQQQ*/
     var css=document.createElement("style");
     css.type="text/css";
     css.innerHTML="#title{font-size:100pt}";
-    document.getElementById(div).appendChild(css);
+    document.body.appendChild(css);
 
     /*background*/
     document.body.style.background="#ff9f80";
@@ -40,7 +43,7 @@ function InitPainter(div)
     //to draw line
     ctx=canvas.getContext("2d");
     ctx.strokeStyle='#000000';
-    ctx.lineWidth=40;
+    ctx.lineWidth=10;
     ctx.fillStyle="#ffffff";
     ctx.fillRect(0,0,500,400);
     
@@ -65,7 +68,6 @@ function InitPainter(div)
             pushStack.length=step;
         }
         pushStack.push(canvas.toDataURL());
-        document.title=step+":"+pushStack.length;
     })
 
     /*add a sub-title*/
@@ -209,6 +211,7 @@ function draw(e)
     }
     ctx.strokeStyle=color;
     ctx.lineJoin=shape;
+    ctx.lineCap=brush_shape;
 
     //line to the place where the mouse is
     ctx.lineTo(e.offsetX,e.offsetY);
@@ -259,16 +262,19 @@ function Shape(e)
     //rectangle
     if (e==0)
     {
+        brush_shape = 'square';
         shape ='bevel'
     }
     //round 
     else if (e==1)
     {
+        brush_shape = 'round';
         shape='round'
     } 
     //triangle
     else if (e==2)
     {
+        brush_shape = 'butt';
         shape = 'miter'
     }
 };
