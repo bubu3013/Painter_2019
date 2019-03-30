@@ -1,0 +1,103 @@
+var draw;//to check 是否正在繪圖狀態
+function InitPainter(div)
+{
+    /*add a title*/
+    var title=document.createElement('H1');
+    title.innerHTML='painter';
+    document.getElementById(div).appendChild(title);
+    /*background*/
+    //document.body.style.background="#f44242";
+    //document.body.innerHTML+='<canvas id="canvas" background-color:"White" width="400" height="500" style="border:1px solid #000000"></canvas>';
+
+    /*to layout the canvas*/
+    var canvas=document.createElement('canvas');
+    canvas.width=400;
+    canvas.height=300;
+    canvas.style="background-color:#ffffff";
+    canvas.style="border:1px solid #000000";
+    document.getElementById(div).appendChild(canvas);
+
+    //to draw line
+    ctx=canvas.getContext("2d");
+    ctx.moveTo(0,0);
+    canvas.addEventListener("click",drawline);
+
+
+    /*add a sub-title*/
+    var title=document.createElement('h3');
+    title.innerHTML='Brush Shape';
+    document.getElementById(div).appendChild(title);
+
+    //add a button round
+    var button=document.createElement('button');
+    button.type="button";
+    button.innerHTML="Round";
+    document.getElementById(div).appendChild(button);
+
+    //add a button rectangle
+    var button=document.createElement('button');
+    button.type="button";
+    button.innerHTML="Rectangle";
+    document.getElementById(div).appendChild(button);
+
+    //add a button triangle
+    var button=document.createElement('button');
+    button.type="button";
+    button.innerHTML="Triangle";
+    document.getElementById(div).appendChild(button);
+
+    /*add a sub-title*/
+    var title=document.createElement('h3');
+    title.innerHTML='Brush Color';
+    document.getElementById(div).appendChild(title);
+
+    //choose color : red
+    var button=document.createElement('button');
+    button.type="button";
+    button.innerHTML="Red";
+    document.getElementById(div).appendChild(button);
+
+    //choose color : blue
+    var button=document.createElement('button');
+    button.type="button";
+    button.innerHTML="Blue";
+    document.getElementById(div).appendChild(button);
+
+    //choose color : black
+    var button=document.createElement('button');
+    button.type="button";
+    button.innerHTML="Black";
+    document.getElementById(div).appendChild(button);
+
+    /*add a sub-title*/
+    var title=document.createElement('h3');
+    title.innerHTML='Eraser';
+    document.getElementById(div).appendChild(title);
+
+    //an eraser 
+    var button=document.createElement('button');
+    button.type="button";
+    button.innerHTML="Eraser";
+    document.getElementById(div).appendChild(button);
+
+    //a reset button 
+    var button=document.createElement('button');
+    button.type="button";
+    button.innerHTML="Reset";
+    document.getElementById(div).appendChild(button);
+
+    /*css*/
+    var css=document.createElement("style");
+    css.type="text/css";
+    css.innerHTML="strong{color:lightblue}";
+    document.getElementById(div).appendChild(css);
+  
+}
+function drawline(e)
+{
+    var x = e.clientX;
+    var y = e.clientY;
+    ctx.lineTo(x-10,y-80);
+    ctx.stroke();
+    document.getElementById('title').innerHTML=x+","+y;
+}
