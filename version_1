@@ -15,31 +15,40 @@ var cur=true;
 function InitPainter(div)
 {
     /*add a title*/
-    var title=document.createElement('H1');
+    var title=document.createElement('h2');
     title.innerHTML='painter';
     document.getElementById(div).appendChild(title);
+
+    /*css*/
+    var css=document.createElement("style");
+    css.type="text/css";
+    css.innerHTML="#title{font-size:100pt}";
+    document.getElementById(div).appendChild(css);
+
     /*background*/
-    //document.body.style.background="#f44242";
+    document.body.style.background="#ff9f80";
 
     /*to layout the canvas*/
     var canvas=document.createElement('canvas');
     canvas.width=500;
     canvas.height=400;
-    //canvas.background-color="#ffffff";
     canvas.style="border:1px solid #000000";
     document.getElementById(div).appendChild(canvas);
 
     //to draw line
     ctx=canvas.getContext("2d");
     ctx.strokeStyle='#000000';
-    ctx.lineWidth=10;
+    ctx.lineWidth=40;
+    ctx.fillStyle="#ffffff";
+    ctx.fillRect(0,0,500,400);
     
     //event binding
     canvas.addEventListener('mouseup',()=>isDrawing=false);
     canvas.addEventListener('mouseout',()=>isDrawing=false);
     canvas.addEventListener('mousedown',(e)=>
     {
-        isDrawing=true;//allow to draw
+        //allow to draw
+        isDrawing=true;
         //begin to draw
         ctx.moveTo(e.offsetX,e.offsetY);
         ctx.beginPath();
@@ -71,13 +80,6 @@ function InitPainter(div)
     button.type="button";
     button.innerHTML="Triangle";
     button.addEventListener('click',()=>Shape(2));
-    document.getElementById(div).appendChild(button);
-
-    //add a button butt
-    var button=document.createElement('button');
-    button.type="button";
-    button.innerHTML="Default";
-    button.addEventListener('click',()=>Shape(3));
     document.getElementById(div).appendChild(button);
 
     /*add a sub-title*/
@@ -125,6 +127,16 @@ function InitPainter(div)
     button.addEventListener('click',()=>Reset());
     document.getElementById(div).appendChild(button);
 
+    //a reset button 
+    var button=document.createElement('button');
+    button.type="button";
+    button.innerHTML="Un/Redo";
+    button.addEventListener('click',()=>
+    {
+
+    });
+    document.getElementById(div).appendChild(button);
+
     //save image button
     var a=document.createElement('a');
     a.href="#";
@@ -138,12 +150,6 @@ function InitPainter(div)
     });
     document.getElementById(div).appendChild(a);
 
-    /*css*/
-    var css=document.createElement("style");
-    css.type="text/css";
-    css.innerHTML="strong{color:lightblue}";
-    document.getElementById(div).appendChild(css);
-
 }
 function draw(e)
 {
@@ -154,7 +160,7 @@ function draw(e)
         return;
     }
     ctx.strokeStyle=color;
-    ctx.lineCap=shape;
+    ctx.lineJoin=shape;
 
     //line to the place where the mouse is
     ctx.lineTo(e.offsetX,e.offsetY);
@@ -204,7 +210,7 @@ function Shape(e)
     //rectangle
     if (e==0)
     {
-        shape ='square'
+        shape ='bevel'
     }
     //round 
     else if (e==1)
@@ -214,14 +220,8 @@ function Shape(e)
     //triangle
     else if (e==2)
     {
-        //it is still round!!!!!!!
-        shape = 'round'
-    } 
-    //default shape
-    else if (e==3)
-    {
-        shape = 'butt'
-    } 
+        shape = 'miter'
+    }
     //alert("you got the shape " + shape);
 };
 function Reset()
@@ -233,6 +233,8 @@ function Reset()
     shape=0;
 
     ctx.clearRect(0,0,500,400);
+    ctx.fillStyle="#ffffff";
+    ctx.fillRect(0,0,500,400);
     //alert("you reset");
 }
 /*
