@@ -1,3 +1,5 @@
+var pushStack=new Array();
+var step=(-1);
 var isDrawing=false; //to check 是否正在繪圖狀態
 var color="#000000"; //default color is black
 var shape=0;
@@ -55,6 +57,17 @@ function InitPainter(div)
     });
     canvas.addEventListener('mousemove',draw);
     canvas.addEventListener('mousemove',ChangeCursor);
+    canvas.addEventListener('mouseup',()=>
+    {
+        //alert("step is "+step+"the lenght is "+pushStack.length);
+        step++;
+        if(step<pushStack.length)
+        {
+            pushStack.length=step;
+        }
+        pushStack.push(canvas.toDataURL());
+        document.title=step+":"+pushStack.length;
+    })
 
     /*add a sub-title*/
     var title=document.createElement('h3');
@@ -127,13 +140,45 @@ function InitPainter(div)
     button.addEventListener('click',()=>Reset());
     document.getElementById(div).appendChild(button);
 
-    //a reset button 
+    //an undo button 
     var button=document.createElement('button');
     button.type="button";
-    button.innerHTML="Un/Redo";
+    button.innerHTML="Undo";
+    document.getElementById(div).appendChild(button);
     button.addEventListener('click',()=>
     {
+        if (step>0)
+        {
+            step--;
+            var canvasPic=new Image();
+            canvasPic.src=pushStack[step];
+            canvasPic.onload=function()
+            {
+                ctx.drawImage(canvasPic,0,0);
+            }
+            Document.title=step+":"+pushStack.length;
+            alert("aha");
+        }
+    });
 
+    //a redo button 
+    var button=document.createElement('button');
+    button.type="button";
+    button.innerHTML="Redo";
+    button.addEventListener('click',()=>
+    {
+        if (step<pushStack.length-1)
+        {
+            step++;
+            var canvasPic=new Image();
+            canvasPic.src=pushStack[step];
+            canvasPic.onload=function()
+            {
+                ctx.drawImage(canvasPic,0,0);
+            }
+            Document.title=step+":"+pushStack.length;
+            alert("aha");
+        }
     });
     document.getElementById(div).appendChild(button);
 
@@ -165,6 +210,7 @@ function draw(e)
     //line to the place where the mouse is
     ctx.lineTo(e.offsetX,e.offsetY);
     ctx.stroke();
+
 }
 function Color(e)
 {
@@ -246,7 +292,8 @@ reset
 brush shape
 dowload
 cursor icon
+undo/redo button
 
 not yet
-undo/redo button
+css
 */
