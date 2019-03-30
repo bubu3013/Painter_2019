@@ -1,6 +1,17 @@
 var isDrawing=false; //to check 是否正在繪圖狀態
-var lastX=0;
-var lastY=0;
+var color=0;
+/*
+0=>red 
+1=>green 
+2=>black
+*/
+var shape=0;
+/*
+0=>rectangle 
+1=>round 
+2=>triangle 
+3=>default
+*/
 function InitPainter(div)
 {
     /*add a title*/
@@ -30,6 +41,7 @@ function InitPainter(div)
     canvas.addEventListener('mousedown',(e)=>
     {
         isDrawing=true;//allow to draw
+        //begin to draw
         ctx.moveTo(e.offsetX,e.offsetY);
         ctx.beginPath();
     });
@@ -39,13 +51,6 @@ function InitPainter(div)
     var title=document.createElement('h3');
     title.innerHTML='Brush Shape';
     document.getElementById(div).appendChild(title);
-
-    //add a button butt
-    var button=document.createElement('button');
-    button.type="button";
-    button.innerHTML="Butt";
-    document.getElementById(div).appendChild(button);
-    button.onclick=Shape(3);
 
     //add a button rectangle
     var button=document.createElement('button');
@@ -68,6 +73,13 @@ function InitPainter(div)
     document.getElementById(div).appendChild(button);
     //button.onclick=Shape(2);
 
+    //add a button butt
+    var button=document.createElement('button');
+    button.type="button";
+    button.innerHTML="Butt";
+    document.getElementById(div).appendChild(button);
+    button.onclick=Shape(3);
+
     /*add a sub-title*/
     var title=document.createElement('h3');
     title.innerHTML='Brush Color';
@@ -79,6 +91,7 @@ function InitPainter(div)
     button.innerHTML="Red";
     document.getElementById(div).appendChild(button);
     //button.onclick=Color(0);
+    //button.addEventListener('onclick',()=>color=0);
 
     //choose color : green
     var button=document.createElement('button');
@@ -129,17 +142,14 @@ function InitPainter(div)
 }*/
 function draw(e)
 {
-    
+    //看是不是在畫畫的狀態
     if(!isDrawing)
     {
         return;
     }
-    /*ctx.beginPath();
-    ctx.moveTo(lastX,lastY);*/
+    //line to the place where the mouse is
     ctx.lineTo(e.offsetX,e.offsetY);
     ctx.stroke();
-
-    [lastX,lastY]=[e.offsetX,e.offsetY];
 }
 function Color(e)
 {
