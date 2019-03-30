@@ -7,18 +7,19 @@ function InitPainter(div)
     document.getElementById(div).appendChild(title);
     /*background*/
     //document.body.style.background="#f44242";
-    //document.body.innerHTML+='<canvas id="canvas" background-color:"White" width="400" height="500" style="border:1px solid #000000"></canvas>';
 
     /*to layout the canvas*/
     var canvas=document.createElement('canvas');
-    canvas.width=400;
-    canvas.height=300;
-    canvas.style="background-color:#ffffff";
+    canvas.width=1000;
+    canvas.height=1000;
+    //canvas.background-color="#ffffff";
     canvas.style="border:1px solid #000000";
     document.getElementById(div).appendChild(canvas);
 
     //to draw line
     ctx=canvas.getContext("2d");
+    ctx.strokeStyle='#000000';
+    ctx.lineWidth=10;
     ctx.moveTo(0,0);
     canvas.addEventListener("click",drawline);
 
@@ -28,23 +29,26 @@ function InitPainter(div)
     title.innerHTML='Brush Shape';
     document.getElementById(div).appendChild(title);
 
+    //add a button rectangle
+    var button=document.createElement('button');
+    button.type="button";
+    button.innerHTML="Rectangle";
+    button.onclick=Shape(0);
+    document.getElementById(div).appendChild(button);
+
     //add a button round
     var button=document.createElement('button');
     button.type="button";
     button.innerHTML="Round";
     document.getElementById(div).appendChild(button);
-
-    //add a button rectangle
-    var button=document.createElement('button');
-    button.type="button";
-    button.innerHTML="Rectangle";
-    document.getElementById(div).appendChild(button);
+    //button.onclick=Shape(1);
 
     //add a button triangle
     var button=document.createElement('button');
     button.type="button";
     button.innerHTML="Triangle";
     document.getElementById(div).appendChild(button);
+    //button.onclick=Shape(2);
 
     /*add a sub-title*/
     var title=document.createElement('h3');
@@ -56,18 +60,21 @@ function InitPainter(div)
     button.type="button";
     button.innerHTML="Red";
     document.getElementById(div).appendChild(button);
+    //button.onclick=Color(0);
 
-    //choose color : blue
+    //choose color : green
     var button=document.createElement('button');
     button.type="button";
-    button.innerHTML="Blue";
+    button.innerHTML="Green";
     document.getElementById(div).appendChild(button);
+    button.onclick=Color(1); 
 
     //choose color : black
     var button=document.createElement('button');
     button.type="button";
     button.innerHTML="Black";
     document.getElementById(div).appendChild(button);
+    //button.onclick=Color(2);
 
     /*add a sub-title*/
     var title=document.createElement('h3');
@@ -79,6 +86,7 @@ function InitPainter(div)
     button.type="button";
     button.innerHTML="Eraser";
     document.getElementById(div).appendChild(button);
+    //button.onclick=Color(3); 
 
     //a reset button 
     var button=document.createElement('button');
@@ -101,3 +109,45 @@ function drawline(e)
     ctx.stroke();
     document.getElementById('title').innerHTML=x+","+y;
 }
+function Color(e)
+{
+    /*red*/
+    if (e==0)
+    {
+        ctx.strokeStyle = "#cc0000"
+    }
+    //red 
+    else if (e==1)
+    {
+        ctx.strokeStyle = "#00cc00"
+    } 
+    //black
+    else if (e==2)
+    {
+        ctx.strokeStyle = "#000000"
+    } 
+    //eraser
+    else if (e==3)
+    {
+        ctx.strokeStyle="#ffffff"
+    }
+};
+function Shape(shape)
+{
+    //rectangle
+    if (shape==0)
+    {
+        ctx.lineCap = 'rectangle'
+    }
+    //round 
+    else if (shape==1)
+    {
+        ctx.lineCap = 'round'
+    } 
+    //triangle
+    else if (shape==2)
+    {
+        //it is still round!!!!!!!
+        ctx.strokeStyle = "round"
+    } 
+};
