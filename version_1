@@ -30,7 +30,8 @@ function InitPainter(div)
     canvas.addEventListener('mousedown',(e)=>
     {
         isDrawing=true;//allow to draw
-        [lastX.lastY]=[e.offsetX,e.offsetY];
+        ctx.moveTo(e.offsetX,e.offsetY);
+        ctx.beginPath();
     });
     canvas.addEventListener('mousemove',draw);
 
@@ -128,11 +129,13 @@ function InitPainter(div)
 }*/
 function draw(e)
 {
+    
     if(!isDrawing)
     {
         return;
     }
-    ctx.moveTo(lastX,lastY);
+    /*ctx.beginPath();
+    ctx.moveTo(lastX,lastY);*/
     ctx.lineTo(e.offsetX,e.offsetY);
     ctx.stroke();
 
