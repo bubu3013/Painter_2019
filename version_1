@@ -1,6 +1,5 @@
 var isDrawing=false; //to check 是否正在繪圖狀態
-var color="#000000";
-var ctx=0;
+var color="#000000"; //default color is black
 /*
 0=>red 
 1=>green 
@@ -56,29 +55,29 @@ function InitPainter(div)
     var button=document.createElement('button');
     button.type="button";
     button.innerHTML="Rectangle";
-    //button.onclick=Shape(0);
+    button.addEventListener('click',()=>Shape(0));
     document.getElementById(div).appendChild(button);
 
     //add a button round
     var button=document.createElement('button');
     button.type="button";
     button.innerHTML="Round";
+    button.addEventListener('click',()=>Shape(1));
     document.getElementById(div).appendChild(button);
-    button.onclick=Shape(1);
 
     //add a button triangle
     var button=document.createElement('button');
     button.type="button";
     button.innerHTML="Triangle";
+    button.addEventListener('click',()=>Shape(2));
     document.getElementById(div).appendChild(button);
-    //button.onclick=Shape(2);
 
     //add a button butt
     var button=document.createElement('button');
     button.type="button";
-    button.innerHTML="Butt";
+    button.innerHTML="Default";
+    button.addEventListener('click',()=>Shape(3));
     document.getElementById(div).appendChild(button);
-    //button.onclick=Shape(3);
 
     /*add a sub-title*/
     var title=document.createElement('h3');
@@ -115,13 +114,14 @@ function InitPainter(div)
     var button=document.createElement('button');
     button.type="button";
     button.innerHTML="Eraser";
-    document.getElementById(div).appendChild(button);
     button.addEventListener('click',()=>Color(3));
+    document.getElementById(div).appendChild(button);
 
     //a reset button 
     var button=document.createElement('button');
     button.type="button";
     button.innerHTML="Reset";
+    button.addEventListener('click',()=>Reset());
     document.getElementById(div).appendChild(button);
 
     /*css*/
@@ -143,6 +143,7 @@ function draw(e)
         return;
     }
     ctx.strokeStyle=color;
+    ctx.lineCap=shape;
     //line to the place where the mouse is
     ctx.lineTo(e.offsetX,e.offsetY);
     ctx.stroke();
@@ -169,29 +170,53 @@ function Color(e)
     {
         color="#ffffff"
     }
-    alert("you got the color"+color);
+    //alert("you got the color"+color);
 };
-function Shape(shape)
+function Shape(e)
 {
     //rectangle
-    if (shape==0)
+    if (e==0)
     {
-        ctx.lineCap = 'rectangle'
+        shape ='square'
     }
     //round 
-    else if (shape==1)
+    else if (e==1)
     {
-        ctx.lineCap = 'round'
+        shape='round'
     } 
     //triangle
-    else if (shape==2)
+    else if (e==2)
     {
         //it is still round!!!!!!!
-        ctx.strokeStyle = "round"
+        shape = 'round'
     } 
-    else if (shape==3)
+    //default shape
+    else if (e==3)
     {
-        //it is still round!!!!!!!
-        ctx.strokeStyle = "butt"
+        shape = 'butt'
     } 
+    //alert("you got the shape " + shape);
 };
+function Reset()
+{
+    //init all the variable
+    isDrawing=false; 
+    color="#000000"; 
+    shape=0;
+
+    ctx.clearRect(0,0,500,400);
+    //alert("you reset");
+}
+/*
+ok
+brush and eraser
+color selector
+simple menu
+reset
+brush shape
+
+not yet
+cursor icon
+undo/redo button
+dowload
+*/
