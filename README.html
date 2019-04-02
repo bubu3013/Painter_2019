@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+p.a {
+  font: 15px arial, sans-serif;
+}
+
+p.b {
+  font: bold 20px Georgia, serif;
+}
+</style>
+</head>
+<body>
+
+<h1>README.html</h1>
+
+<p class="a">
+    "MyPainter"<br>
+    a title object, whose id is t1.<br>
+    "Canvas"<br>
+    a canvas object, where users can draw on it.<br>
+    "Ctx"<br>
+    an object which users use it to draw on the canvas.<br>
+    "addEventListener"<br>
+    to add all the event of drawing.<br>
+    <br>
+    1. canvas.addEventListener('mousemove',draw);<br>
+        This function always implement when mouse moves<br>
+    2. canvas.addEventListener('mousemove',ChangeCursor);<br>
+        This function will change the cursor if we click eraser, the cursor will change to cell to pointer.<br>
+        else the cursor will be an cell when drawing a line with colors, red, green, black<br>
+    3. canvas.addEventListener('mouseup',()=>to add the current canvas into stack for redo and undo purposes<br>
+    <br>
+</p>
+<h2>"Brush shape"</h2>
+<p class="a">
+    we use the linecapmand linejoin to implement this function.<br>
+    there are three choices for brush shape,<br>
+    rectange,<br>
+    round,<br>
+    triangle<br>
+    <h3>It would be more obvious if you draw a "sharp" angle.<br></h3>
+</p>
+    <br>
+    <h2>"Brush Color"</h2>
+<p class="a">
+    "Brush Colors"<br>
+    there are three choices for brush shape,<br>
+    red,<br>
+    green,<br>
+    black<br>
+    <br>
+</p>
+    <br>
+    <h2>"Other Function"</h2>
+    "Eraser"<br>
+    if you click the eraser, users can use this eraser with the cursor of pointer shape.<br>
+    "Reset"<br>
+    reset all the painter.<br>
+    "Uno/Redo"<br>
+    to undo and redo the painter.<br>
+    "Download"<br>
+    to download the canvas as an image<br>
+    <br><br>
+    The reference : 
+
+    https://ithelp.ithome.com.tw/articles/10194162?sc=iThelpR<br><br>
+    http://www.ezonesoft.com.tw/JavaScript/Painter.htm<br><br>
+    https://jsfiddle.net/codepo8/V6ufG/2/<br><br>
+</p>
+
+
+</body>
+</html>
