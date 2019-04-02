@@ -19,15 +19,16 @@ function InitPainter(div)
 {
     /*add a title*/
     var title=document.createElement('h2');
+    title.id="t1";
     title.innerHTML='painter';
     document.getElementById(div).appendChild(title);
     //page name
     document.title="myPainter";
 
-    /*css QQQQQQQQQQQQQQQQQQQQQQQQQQ*/
+    /*css*/
     var css=document.createElement("style");
     css.type="text/css";
-    css.innerHTML="#title{font-size:100pt}";
+    css.innerHTML="#t1{font:italic 30pt Georgia}";
     document.body.appendChild(css);
 
     /*background*/
@@ -43,7 +44,7 @@ function InitPainter(div)
     //to draw line
     ctx=canvas.getContext("2d");
     ctx.strokeStyle='#000000';
-    ctx.lineWidth=10;
+    ctx.lineWidth=30;
     ctx.fillStyle="#ffffff";
     ctx.fillRect(0,0,500,400);
     
@@ -72,8 +73,15 @@ function InitPainter(div)
 
     /*add a sub-title*/
     var title=document.createElement('h3');
+    title.id="brush_shape"
     title.innerHTML='Brush Shape';
     document.getElementById(div).appendChild(title);
+
+    /*css*/
+    var css=document.createElement("style");
+    css.type="text/css";
+    css.innerHTML="#brush_shape{font:italic 12pt Georgia}";
+    document.body.appendChild(css);
 
     //add a button rectangle
     var button=document.createElement('button');
@@ -99,7 +107,14 @@ function InitPainter(div)
     /*add a sub-title*/
     var title=document.createElement('h3');
     title.innerHTML='Brush Color';
+    title.id="brush_color";
     document.getElementById(div).appendChild(title);
+
+    /*css*/
+    var css=document.createElement("style");
+    css.type="text/css";
+    css.innerHTML="#brush_color{font:italic 12pt Georgia}";
+    document.body.appendChild(css);
 
     //choose color : red
     var button=document.createElement('button');
@@ -125,7 +140,14 @@ function InitPainter(div)
     /*add a sub-title*/
     var title=document.createElement('h3');
     title.innerHTML='Eraser, Reset & Save';
+    title.id="ERS";
     document.getElementById(div).appendChild(title);
+
+    /*css*/
+    var css=document.createElement("style");
+    css.type="text/css";
+    css.innerHTML="#ERS{font:italic 12pt Georgia}";
+    document.body.appendChild(css);
 
     //an eraser 
     var button=document.createElement('button');
