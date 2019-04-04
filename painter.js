@@ -15,12 +15,17 @@ var cur=true;
 0:draw
 1:eraser
 */
+//variance of text
+var with_text=false;
+var text="";
+var typeface="Georgia";//字體
+var typefont="30px";//字大小
 function InitPainter(div)
 {
     /*add a title*/
     var title=document.createElement('h2');
     title.id="t1";
-    title.innerHTML='painter';
+    title.innerHTML='Welcome To MyPainter';
     document.getElementById(div).appendChild(title);
     //page name
     document.title="myPainter";
@@ -36,8 +41,8 @@ function InitPainter(div)
 
     /*to layout the canvas*/
     var canvas=document.createElement('canvas');
-    canvas.width=500;
-    canvas.height=400;
+    canvas.width=600;
+    canvas.height=500;
     canvas.style="border:1px solid #000000";
     document.getElementById(div).appendChild(canvas);
 
@@ -46,18 +51,29 @@ function InitPainter(div)
     ctx.strokeStyle='#000000';
     ctx.lineWidth=30;
     ctx.fillStyle="#ffffff";
-    ctx.fillRect(0,0,500,400);
+    ctx.fillRect(0,0,600,500);
     
     //event binding
     canvas.addEventListener('mouseup',()=>isDrawing=false);
     canvas.addEventListener('mouseout',()=>isDrawing=false);
     canvas.addEventListener('mousedown',(e)=>
     {
-        //allow to draw
-        isDrawing=true;
-        //begin to draw
-        ctx.moveTo(e.offsetX,e.offsetY);
-        ctx.beginPath();
+        if (with_text==true)
+        {
+            ctx.fillStyle="#000000";
+            //ctx.font = "30px Arial";
+            ctx.font=typefont+" "+typeface;
+            ctx.fillText(text,e.offsetX,e.offsetY);
+            with_text=false;
+        }
+        else
+        {
+            //allow to draw
+            isDrawing=true;
+            //begin to draw
+            ctx.moveTo(e.offsetX,e.offsetY);
+            ctx.beginPath();
+        }
     });
     canvas.addEventListener('mousemove',draw);
     canvas.addEventListener('mousemove',ChangeCursor);
@@ -100,7 +116,7 @@ function InitPainter(div)
     //add a button triangle
     var button=document.createElement('button');
     button.type="button";
-    button.innerHTML="Triangle";
+    button.innerHTML="Defulat";
     button.addEventListener('click',()=>Shape(2));
     document.getElementById(div).appendChild(button);
 
@@ -135,6 +151,79 @@ function InitPainter(div)
     button.type="button";
     button.innerHTML="Black";
     button.addEventListener('click',()=>Color(2));
+    document.getElementById(div).appendChild(button);
+
+    //text input
+    var title=document.createElement('h3');
+    title.innerHTML='Text Input, type face and size';
+    title.id="textInput";
+    document.getElementById(div).appendChild(title);
+
+    /*css*/   
+    var css=document.createElement("style");
+    css.type="text/css";
+    css.innerHTML="#textInput{font:italic 12pt Georgia}";
+    document.body.appendChild(css);
+    
+    //text size
+    var button=document.createElement('button');
+    button.type="button";
+    button.innerHTML="5px";
+    button.addEventListener('click',()=>{typefont="5px";});
+    document.getElementById(div).appendChild(button);
+
+    var button=document.createElement('button');
+    button.type="button";
+    button.innerHTML="30px";
+    button.addEventListener('click',()=>{typefont="30px";});
+    document.getElementById(div).appendChild(button);
+
+    var button=document.createElement('button');
+    button.type="button";
+    button.innerHTML="60px";
+    button.addEventListener('click',()=>{typefont="60px";});
+    document.getElementById(div).appendChild(button);
+
+
+    //typeface button
+    var button=document.createElement('button');
+    button.type="button";
+    button.innerHTML="Arial";
+    button.addEventListener('click',()=>{typeface="Arial";});
+    document.getElementById(div).appendChild(button);
+
+    var button=document.createElement('button');
+    button.type="button";
+    button.innerHTML="Georgia";
+    button.addEventListener('click',()=>{typeface="Georgia";});
+    document.getElementById(div).appendChild(button);
+
+    var button=document.createElement('button');
+    button.type="button";
+    button.innerHTML="Times New Roman";
+    button.addEventListener('click',()=>{typeface="Times New Roman";});
+    document.getElementById(div).appendChild(button);
+
+    //input box
+    var form=document.createElement('form');
+    form.action="/action_page.php";
+    document.getElementById(div).appendChild(form);
+
+    var input=document.createElement('input');
+    input.id="inputText";
+    input.type="text";
+    document.getElementById(div).appendChild(input);
+
+    //submit button
+    var button=document.createElement('button');
+    button.type="button";
+    button.innerHTML="Submit";
+    button.addEventListener('click',()=>
+    {
+        with_text=true;
+        text=(document.getElementById('inputText').value);
+        alert("Please Click on Canvas for the Location of Text");
+    });
     document.getElementById(div).appendChild(button);
 
     /*add a sub-title*/
@@ -293,7 +382,7 @@ function Shape(e)
         brush_shape = 'round';
         shape='round'
     } 
-    //triangle
+    //Default
     else if (e==2)
     {
         brush_shape = 'butt';
@@ -306,11 +395,11 @@ function Reset()
     isDrawing=false; 
     color="#000000"; 
     cur=true;
-    shape=0;
+    shape=2;
     //reset the canvas
-    ctx.clearRect(0,0,500,400);
+    ctx.clearRect(0,0,600,500);
     ctx.fillStyle="#ffffff";
-    ctx.fillRect(0,0,500,400);
+    ctx.fillRect(0,0,600,500);
     //init the pushStack
     step=(-1);
     pushStack=[];
