@@ -44,7 +44,7 @@ function InitPainter(div)
     var canvas=document.createElement('canvas');
     canvas.width=600;
     canvas.height=500;
-    canvas.style="border:1px solid #000000";
+    canvas.style="border:20px solid #000000";
     document.getElementById(div).appendChild(canvas);
 
     //to draw line
@@ -96,12 +96,14 @@ function InitPainter(div)
     /*css*/
     var css=document.createElement("style");
     css.type="text/css";
-    css.innerHTML="#brush_shape{font:italic 12pt Georgia}";
+    css.innerHTML="#brush_shape{font: bold italic 15pt Georgia}";
     document.body.appendChild(css);
 
     //add a button rectangle
     var button=document.createElement('button');
     button.type="button";
+    button.id="Rec";
+    button.style="border:5px double #b3b3b3";
     button.innerHTML="Rectangle";
     button.addEventListener('click',()=>Shape(0));
     document.getElementById(div).appendChild(button);
@@ -110,15 +112,37 @@ function InitPainter(div)
     var button=document.createElement('button');
     button.type="button";
     button.innerHTML="Round";
+    button.id="Round";
+    button.style="border:5px double #b3b3b3";
     button.addEventListener('click',()=>Shape(1));
     document.getElementById(div).appendChild(button);
 
-    //add a button triangle
+    //add a button normal
     var button=document.createElement('button');
     button.type="button";
-    button.innerHTML="Defulat";
+    button.innerHTML="Normal";
+    button.id="Tri";
+    button.style="border:5px double #b3b3b3";
     button.addEventListener('click',()=>Shape(2));
     document.getElementById(div).appendChild(button);
+
+    /*css*/
+    var css=document.createElement("style");
+    css.type="text/css";
+    css.innerHTML="#Rec{font: italic 12pt Georgia}";
+    document.body.appendChild(css);
+
+    /*css*/
+    var css=document.createElement("style");
+    css.type="text/css";
+    css.innerHTML="#Round{font: italic 12pt Georgia}";
+    document.body.appendChild(css);
+
+    /*css*/
+    var css=document.createElement("style");
+    css.type="text/css";
+    css.innerHTML="#Tri{font: italic 12pt Georgia}";
+    document.body.appendChild(css);
 
     /*add a sub-title*/
     var title=document.createElement('h3');
@@ -129,31 +153,95 @@ function InitPainter(div)
     /*css*/
     var css=document.createElement("style");
     css.type="text/css";
-    css.innerHTML="#brush_color{font:italic 12pt Georgia}";
+    css.innerHTML="#brush_color{font: bold italic 15pt Georgia}";
     document.body.appendChild(css);
 
     //choose color : red
     var button=document.createElement('button');
     button.type="button";
     button.innerHTML="Red";
+    button.id="Red";
+    button.style="border:5px solid #cc0000";
     button.addEventListener('click',()=>Color(0));
+    document.getElementById(div).appendChild(button);
+
+    //choose color : Yellow
+    var button=document.createElement('button');
+    button.type="button";
+    button.innerHTML="Yellow";
+    button.id="Yellow";
+    button.style="border:5px solid #ffff66";
+    button.addEventListener('click',()=>{color="#ffff66";cur=true;});
     document.getElementById(div).appendChild(button);
 
     //choose color : green
     var button=document.createElement('button');
     button.type="button";
     button.innerHTML="Green";
+    button.id="Green";
+    button.style="border:5px solid #00cc00";
     button.addEventListener('click',()=>Color(1));
+    document.getElementById(div).appendChild(button);
+
+    //choose color : blue
+    var button=document.createElement('button');
+    button.type="button";
+    button.innerHTML="Blue";
+    button.id="Blue";
+    button.style="border:5px solid #0000ff";
+    button.addEventListener('click',()=>{color="#0000ff";cur=true;});
+    document.getElementById(div).appendChild(button);
+
+    //choose color : purple
+    var button=document.createElement('button');
+    button.type="button";
+    button.innerHTML="Purple";
+    button.id="Purple";
+    button.style="border:5px solid #660066";
+    button.addEventListener('click',()=>{color="#660066";cur=true;});
     document.getElementById(div).appendChild(button);
 
     //choose color : black
     var button=document.createElement('button');
     button.type="button";
     button.innerHTML="Black";
+    button.id="Black";
+    button.style="border:5px solid #000000";
     button.addEventListener('click',()=>Color(2));
     document.getElementById(div).appendChild(button);
 
-    //text input
+    //css of six colors button
+    var css=document.createElement("style");
+    css.type="text/css";
+    css.innerHTML="#Black{font:bold 12pt Georgia}";
+    document.body.appendChild(css);
+
+    var css=document.createElement("style");
+    css.type="text/css";
+    css.innerHTML="#Red{font:bold 12pt Georgia}";
+    document.body.appendChild(css);
+
+    var css=document.createElement("style");
+    css.type="text/css";
+    css.innerHTML="#Green{font: bold 12pt Georgia}";
+    document.body.appendChild(css);
+
+    var css=document.createElement("style");
+    css.type="text/css";
+    css.innerHTML="#Yellow{font:bold 12pt Georgia}";
+    document.body.appendChild(css);
+        
+    var css=document.createElement("style");
+    css.type="text/css";
+    css.innerHTML="#Blue{font:bold 12pt Georgia}";
+    document.body.appendChild(css);
+
+    var css=document.createElement("style");
+    css.type="text/css";
+    css.innerHTML="#Purple{font:bold 12pt Georgia}";
+    document.body.appendChild(css);
+
+    //add a subtitle
     var title=document.createElement('h3');
     title.innerHTML='Text Input, type face and size';
     title.id="textInput";
@@ -162,27 +250,54 @@ function InitPainter(div)
     /*css*/   
     var css=document.createElement("style");
     css.type="text/css";
-    css.innerHTML="#textInput{font:italic 12pt Georgia}";
+    css.innerHTML="#textInput{font: bold italic 15pt Georgia}";
     document.body.appendChild(css);
     
     //text size
     var button=document.createElement('button');
     button.type="button";
-    button.innerHTML="5px";
-    button.addEventListener('click',()=>{typefont="5px";});
+    button.id="px10";
+    button.innerHTML="10px";
+    button.style="border:5px double #b3b3b3";
+    button.addEventListener('click',()=>{typefont="10px";});
     document.getElementById(div).appendChild(button);
 
     var button=document.createElement('button');
     button.type="button";
     button.innerHTML="30px";
+    button.style="border:5px double #b3b3b3";
+    button.id="px30";
     button.addEventListener('click',()=>{typefont="30px";});
     document.getElementById(div).appendChild(button);
 
     var button=document.createElement('button');
     button.type="button";
     button.innerHTML="60px";
+    button.style="border:5px double #b3b3b3";
+    button.id="px60";
     button.addEventListener('click',()=>{typefont="60px";});
     document.getElementById(div).appendChild(button);
+
+    //the css of pixel buttons
+    var css=document.createElement("style");
+    css.type="text/css";
+    css.innerHTML="#px10{font: bold 12pt Georgia}";
+    document.body.appendChild(css);
+
+    var css=document.createElement("style");
+    css.type="text/css";
+    css.innerHTML="#px30{font:bold 12pt Georgia}";
+    document.body.appendChild(css);
+        
+    var css=document.createElement("style");
+    css.type="text/css";
+    css.innerHTML="#px60{font:bold 12pt Georgia}";
+    document.body.appendChild(css);
+
+    var css=document.createElement("style");
+    css.type="text/css";
+    css.innerHTML="#Purple{font:bold 12pt Georgia}";
+    document.body.appendChild(css);
 
     //換行
     var br=document.createElement('br');
@@ -191,21 +306,43 @@ function InitPainter(div)
     //typeface button
     var button=document.createElement('button');
     button.type="button";
+    button.id="Arial"
     button.innerHTML="Arial";
+    button.style="border:5px dotted #b3b3b3";
     button.addEventListener('click',()=>{typeface="Arial";});
     document.getElementById(div).appendChild(button);
 
     var button=document.createElement('button');
     button.type="button";
+    button.id="Impact";
     button.innerHTML="Impact";
+    button.style="border:5px dotted #b3b3b3";
     button.addEventListener('click',()=>{typeface="Impact";});
     document.getElementById(div).appendChild(button);
 
     var button=document.createElement('button');
     button.type="button";
-    button.innerHTML="Palatino Linotype";
-    button.addEventListener('click',()=>{typeface="Palatino Linotype";});
+    button.id="LucidaConsole"
+    button.innerHTML="Lucida Console";
+    button.style="border:5px dotted #b3b3b3";
+    button.addEventListener('click',()=>{typeface="Lucida Console";});
     document.getElementById(div).appendChild(button);
+
+    //css of three type face button
+    var css=document.createElement("style");
+    css.type="text/css";
+    css.innerHTML="#LucidaConsole{font:bold 12pt Lucida Console}";
+    document.body.appendChild(css);
+
+    var css=document.createElement("style");
+    css.type="text/css";
+    css.innerHTML="#Impact{font:bold 12pt Impact}";
+    document.body.appendChild(css);
+
+    var css=document.createElement("style");
+    css.type="text/css";
+    css.innerHTML="#Arial{font: bold 12pt Arial}";
+    document.body.appendChild(css);
 
     //input box
     var form=document.createElement('form');
@@ -238,27 +375,36 @@ function InitPainter(div)
     /*css*/
     var css=document.createElement("style");
     css.type="text/css";
-    css.innerHTML="#ERS{font:italic 12pt Georgia}";
+    css.innerHTML="#ERS{font: bold italic 15pt Georgia}";
     document.body.appendChild(css);
 
     //an eraser 
     var button=document.createElement('button');
     button.type="button";
+    button.id="Eraser";
+    button.style="border:5px double #b3b3b3";
     button.innerHTML="Eraser";
-    button.addEventListener('click',()=>Color(3));
+    button.addEventListener('click',()=>
+    {
+        Color(3);
+    });
     document.getElementById(div).appendChild(button);
 
     //a reset button 
     var button=document.createElement('button');
     button.type="button";
+    button.id="Reset";
     button.innerHTML="Reset";
+    button.style="border:5px double #b3b3b3";
     button.addEventListener('click',()=>Reset());
     document.getElementById(div).appendChild(button);
 
     //an undo button 
     var button=document.createElement('button');
     button.type="button";
+    button.id="Undo";
     button.innerHTML="Undo";
+    button.style="border:5px double #b3b3b3";
     document.getElementById(div).appendChild(button);
     button.addEventListener('click',()=>
     {
@@ -286,6 +432,8 @@ function InitPainter(div)
     var button=document.createElement('button');
     button.type="button";
     button.innerHTML="Redo";
+    button.id="Redo";
+    button.style="border:5px double #b3b3b3";
     button.addEventListener('click',()=>
     {
         if (step<pushStack.length-1)
@@ -300,6 +448,30 @@ function InitPainter(div)
         }
     });
     document.getElementById(div).appendChild(button);
+
+    /*css*/
+    var css=document.createElement("style");
+    css.type="text/css";
+    css.innerHTML="#Eraser{font: italic 12pt Georgia}";
+    document.body.appendChild(css);
+
+    /*css*/
+    var css=document.createElement("style");
+    css.type="text/css";
+    css.innerHTML="#Reset{font: italic 12pt Georgia}";
+    document.body.appendChild(css);
+
+    /*css*/
+    var css=document.createElement("style");
+    css.type="text/css";
+    css.innerHTML="#Undo{font: italic 12pt Georgia}";
+    document.body.appendChild(css);
+
+    /*css*/
+    var css=document.createElement("style");
+    css.type="text/css";
+    css.innerHTML="#Redo{font: italic 12pt Georgia}";
+    document.body.appendChild(css);
 
     //save image button
     var a=document.createElement('a');
@@ -319,7 +491,7 @@ function InitPainter(div)
     /*css*/   
     var css=document.createElement("style");
     css.type="text/css";
-    css.innerHTML="#download{font:italic 12pt Georgia}";
+    css.innerHTML="#download{font:Bold 12pt Georgia}";
     document.body.appendChild(css);
 
 }
@@ -352,7 +524,7 @@ function Color(e)
     else if (e==1)
     {
         cur=true;
-        color = "#00cc00"
+        color = "#4CAF50"
     } 
     //black
     else if (e==2)
@@ -366,6 +538,7 @@ function Color(e)
         cur=false;
         color="#ffffff"
     }
+    ChangeCursor();
 };
 //change the cursor
 function ChangeCursor()
