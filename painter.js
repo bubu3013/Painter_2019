@@ -20,6 +20,7 @@ var with_text=false;
 var text="";
 var typeface="Georgia";//字體
 var typefont="30px";//字大小
+
 function InitPainter(div)
 {
     /*add a title*/
@@ -60,8 +61,7 @@ function InitPainter(div)
     {
         if (with_text==true)
         {
-            ctx.fillStyle="#000000";
-            //ctx.font = "30px Arial";
+            ctx.fillStyle=color;
             ctx.font=typefont+" "+typeface;
             ctx.fillText(text,e.offsetX,e.offsetY);
             with_text=false;
@@ -184,6 +184,9 @@ function InitPainter(div)
     button.addEventListener('click',()=>{typefont="60px";});
     document.getElementById(div).appendChild(button);
 
+    //換行
+    var br=document.createElement('br');
+    document.getElementById(div).appendChild(br);
 
     //typeface button
     var button=document.createElement('button');
@@ -301,6 +304,7 @@ function InitPainter(div)
     //save image button
     var a=document.createElement('a');
     a.href="#";
+    a.id="download";
     a.innerHTML="Download";
     a.download="test.png";
     a.addEventListener('click',()=>
@@ -310,6 +314,13 @@ function InitPainter(div)
 
     });
     document.getElementById(div).appendChild(a);
+
+
+    /*css*/   
+    var css=document.createElement("style");
+    css.type="text/css";
+    css.innerHTML="#download{font:italic 12pt Georgia}";
+    document.body.appendChild(css);
 
 }
 function draw(e)
@@ -396,11 +407,18 @@ function Reset()
     color="#000000"; 
     cur=true;
     shape=2;
+    brush_shape=0;
+    with_text=false;
+    text="";
+    typeface="Georgia";
+    typefont="30px";
+
     //reset the canvas
     ctx.clearRect(0,0,600,500);
     ctx.fillStyle="#ffffff";
     ctx.fillRect(0,0,600,500);
+    
     //init the pushStack
-    step=(-1);
+    step=(0);
     pushStack=[];
 }
