@@ -194,14 +194,14 @@ function InitPainter(div)
 
     var button=document.createElement('button');
     button.type="button";
-    button.innerHTML="Georgia";
-    button.addEventListener('click',()=>{typeface="Georgia";});
+    button.innerHTML="Impact";
+    button.addEventListener('click',()=>{typeface="Impact";});
     document.getElementById(div).appendChild(button);
 
     var button=document.createElement('button');
     button.type="button";
-    button.innerHTML="Times New Roman";
-    button.addEventListener('click',()=>{typeface="Times New Roman";});
+    button.innerHTML="Palatino Linotype";
+    button.addEventListener('click',()=>{typeface="Palatino Linotype";});
     document.getElementById(div).appendChild(button);
 
     //input box
